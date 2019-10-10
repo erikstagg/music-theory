@@ -1,1 +1,11 @@
-console.log(music_theory.getScale("d", "major_pentatonic"));
+$( document ).ready(function() {
+  
+  /*
+  Nav Dropdowns
+*/
+
+
+
+// end nav dropdowns
+
+});
