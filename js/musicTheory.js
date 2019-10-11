@@ -17,17 +17,20 @@ var music_theory = {
     getScale
     get a specific scale by passing the base note and type of scale as arguements
   */
-  getScale: function(note, type) {
+  getScale: function(note, type, octave) {
     var notesShifted = this.notes.slice();
-    for (var i = 0; i < this.notes.indexOf(note); i++) {     // shift the notes so that position 0 in the array is the first note in the scale
+    var numShifted = 0;
+    for (numShifted; numShifted < this.notes.indexOf(note); numShifted++) {     // shift the notes so that position 0 in the array is the first note in the scale
       var noteToShift = notesShifted.shift();
       notesShifted.push(noteToShift);
     }
 
     var scale = [];
-    this.scales[type].forEach(notePos => {      // use the scale interval object to assign the notes of the scale
-      scale.push(notesShifted[notePos]);
-    });
+    for (var i = 0; i < this.scales[type].length; i++) {     // use the scale interval object to assign the notes of the scale
+      if (i == (this.scales[type].length - numShifted)){ octave++; }
+      scaleNotePos = this.scales[type][i];
+      scale.push(notesShifted[scaleNotePos] + octave);
+    };
     return scale;
   }
 }
