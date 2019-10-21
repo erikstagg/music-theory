@@ -23,10 +23,12 @@ $(document).ready(function () {
         generateNoteDurationSelector();
         generateOctaveSelector();
         generateScalePatternSelector();
+        $('#trainerBar').show();
 
         break;
       default:
-        // do nothing
+        destroySelectors();
+        $('#trainerBar').hide();
     }
   });
 
@@ -59,4 +61,13 @@ $(document).ready(function () {
     Tone.Transport.stop();
     Tone.Transport.cancel(0);
   }
+
+  $("body").keypress(function (event) {
+    if (getNoteFromQWERTY(event.key, false)) {
+      $('#trainerBar').html(getNoteFromQWERTY(event.key, false));
+    } else {
+      $('#trainerBar').html('Key played is not a note.');
+    }
+  });
+
 });

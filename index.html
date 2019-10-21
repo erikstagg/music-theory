@@ -58,6 +58,23 @@
 			cursor: pointer;
 			border-radius: 15px;
 		}
+
+		#trainerBar {
+			width: 100%;
+			height: 40px;
+			text-align: center;
+			padding-top: 9px;
+			border: 1px solid #a5a5a5;
+			border-radius: 15px;
+		}
+
+		#trainerBar .good {
+			background-color: #28a745;
+		}
+
+		#trainerBar .bad {
+			background-color: red;
+		}
 	</style>
 	<div class="container">
 		<div class="row">
@@ -69,11 +86,13 @@
 		<div id="globalControls" class="row align-items-end">
 			<div class="col">
 				<span id="tempoIcon"><img src="./icons/clock.svg"></span> <span id="lblTempo"></span>
-				<input type="range" class="form-control-range slider" id="tempo" min="60" max="200" value="150"oninput="updateTempo(this.value)" onchange="updateTempo(this.value)">
+				<input type="range" class="form-control-range slider" id="tempo" min="60" max="200" value="150"
+					oninput="updateTempo(this.value)" onchange="updateTempo(this.value)">
 			</div>
 			<div class="col">
 				<span id="volumeIcon"><img class="icon" src="./icons/unmute.svg"></span> <span id="lblVolume"></span>
-				<input type="range" class="form-control-range slider" id="volume" min="-51" max="0" value="-5"oninput="updateVolume(this.value)" onchange="updateVolume(this.value)">
+				<input type="range" class="form-control-range slider" id="volume" min="-51" max="0" value="-5"
+					oninput="updateVolume(this.value)" onchange="updateVolume(this.value)">
 			</div>
 		</div><br />
 		<div class="row">
@@ -83,7 +102,12 @@
 				</select>
 			</div>
 		</div><br />
-		<div id="selectors" class="row"></div>
+		<div id="selectors" class="row"></div><br />
+		<div class="row">
+			<div class="col-12">
+				<div id="trainerBar" style="display: none;">Play in the selected scale.</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col">
 				<tone-content>
@@ -92,7 +116,6 @@
 				</tone-content>
 			</div>
 		</div>
-
 	</div>
 
 
@@ -122,7 +145,7 @@
 			synth.volume.value = currentVolume;
 		}
 		var currentTempo;
-		updateTempo = function (val)  {
+		updateTempo = function (val) {
 			currentTempo = val;
 			Tone.Transport.bpm.value = currentTempo;
 			$('#lblTempo').html(val + " BPM");
@@ -137,6 +160,7 @@
 	</script>
 	<script src="./js/musicTheory.js"></script>
 	<script src="./js/generators.js"></script>
+	<script src="./js/utilities.js"></script>
 	<script src="./js/main.js"></script>
 </body>
 

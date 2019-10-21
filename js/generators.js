@@ -71,3 +71,7 @@ generateNoteDurationSelector = function () {
     <option value="n.">dotted</option>
   `);
 }
+
+destroySelectors = function () {
+  $('#selectors').html('');
+}
