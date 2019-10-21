@@ -79,8 +79,6 @@ $(document).ready(function () {
       <option value="16">16th notes</option>
       <option value="8">8th notes</option>
       <option value="4" selected>quarter notes</option>
-      <option value="2">half notes</option>
-      <option value="1">whole notes</option>
     `)
     $('#selectors').append(`<div class="col"><select id="noteDurationMod" class="dynamicSelector form-control">
       <option value="n" selected>No Tuplet</option>

@@ -25,11 +25,15 @@ var music_theory = {
       notesShifted.push(noteToShift);
     }
 
-    var scale = [];
+    var thisNote, lastNote, scale = [];
     for (var i = 0; i < this.scales[type].length; i++) {     // use the scale interval object to assign the notes of the scale
-      if (i == (this.scales[type].length - numShifted)){ octave++; }
       scaleNotePos = this.scales[type][i];
-      scale.push(notesShifted[scaleNotePos] + octave);
+      thisNote = notesShifted[scaleNotePos];
+      if (this.notes.indexOf(thisNote) < this.notes.indexOf(lastNote)){
+        octave++;
+      }
+      scale.push(thisNote + octave);
+      lastNote = thisNote;
     };
     return scale;
   }
