@@ -14,10 +14,10 @@ var music_theory = {
   },
 
   /*
-    getScale
-    get a specific scale by passing the base note and type of scale as arguements
+    getScaleWithOctave
+    get a specific scale with octave of notes by passing the base note and type of scale as arguements
   */
-  getScale: function(note, type, octave) {
+  getScaleWithOctave: function(note, type, octave) {
     var notesShifted = this.notes.slice();
     var numShifted = 0;
     for (numShifted; numShifted < this.notes.indexOf(note); numShifted++) {     // shift the notes so that position 0 in the array is the first note in the scale
@@ -36,5 +36,34 @@ var music_theory = {
       lastNote = thisNote;
     };
     return scale;
+  },
+
+  /*
+    getScale
+    get the notes in a scale by passing the base note and type of scale as arguements
+  */
+  getScale: function(note, type) {
+    var notesShifted = this.notes.slice();
+    var numShifted = 0;
+    for (numShifted; numShifted < this.notes.indexOf(note); numShifted++) {     // shift the notes so that position 0 in the array is the first note in the scale
+      var noteToShift = notesShifted.shift();
+      notesShifted.push(noteToShift);
+    }
+
+    var thisNote, scale = [];
+    for (var i = 0; i < this.scales[type].length; i++) {     // use the scale interval object to assign the notes of the scale
+      scaleNotePos = this.scales[type][i];
+      thisNote = notesShifted[scaleNotePos];
+      scale.push(thisNote);
+    };
+    return scale;
+  },
+
+  isInKey: function(noteToTest, rootNote, scaleType) {
+    if (this.getScale(rootNote, scaleType).includes(noteToTest)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

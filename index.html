@@ -68,12 +68,23 @@
 			border-radius: 15px;
 		}
 
-		#trainerBar .good {
+		#trainerBar span {
+			background-color: rgba(255, 255, 255, 0.8);
+			margin: 0 10px;
+			padding: 3px 10px;
+			border-radius: 10px;
+		}
+
+		#trainerBar span:empty {
+			display: none;
+		}
+
+		#trainerBar.good {
 			background-color: #28a745;
 		}
 
-		#trainerBar .bad {
-			background-color: red;
+		#trainerBar.bad {
+			background-color: rgb(179, 0, 0);
 		}
 	</style>
 	<div class="container">
@@ -95,17 +106,22 @@
 					oninput="updateVolume(this.value)" onchange="updateVolume(this.value)">
 			</div>
 		</div><br />
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col">
 				<select id="exercise-selector" class="form-control">
 					<option selected>Pick an exercise</option>
 				</select>
 			</div>
-		</div><br />
+		</div><br /> -->
 		<div id="selectors" class="row"></div><br />
 		<div class="row">
 			<div class="col-12">
-				<div id="trainerBar" style="display: none;">Play in the selected scale.</div>
+				<div id="trainerBar" style="display: none;">
+					<span id="notesCorrect"></span>
+					<span id="notesWrong"></span>
+					<span id="score"></span>
+					<span id="notePlayedLast">play in the selected scale.</span>
+				</div>
 			</div>
 		</div>
 		<div class="row">
@@ -159,6 +175,7 @@
 		document.querySelector("tone-synth").bind(synth);
 	</script>
 	<script src="./js/musicTheory.js"></script>
+	<script src="./js/MIDIAccess.js"></script>
 	<script src="./js/generators.js"></script>
 	<script src="./js/utilities.js"></script>
 	<script src="./js/main.js"></script>

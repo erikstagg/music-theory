@@ -5,7 +5,7 @@ generatePlayPauseButtons = function () {
   $('#selectors').append(stopButtonHtml);
   $('.col.btnStop').hide();
   $('#btnPlaySequence').click(function () {
-    playSequence(music_theory.getScale($('#rootNote').val(), $('#scale').val(), $('#octave').val()), $('#noteDuration').val() + $('#noteDurationMod').val(), $("#scalePattern").val());
+    playSequence(music_theory.getScaleWithOctave($('#rootNote').val(), $('#scale').val(), $('#octave').val()), $('#noteDuration').val() + $('#noteDurationMod').val(), $("#scalePattern").val());
   });
   $('#btnStopSequence').click(function () {
     stopSequence();
@@ -16,7 +16,7 @@ generatePlayPauseButtons = function () {
 generateNoteSelector = function () {
   $('#selectors').append('<div class="col"><select id="rootNote" class="dynamicSelector form-control"></select></div>');
   for (var i = 0; i < music_theory.notes.length; i++) {
-    $("#rootNote").append(`<option value="${music_theory.notes[i]}">${music_theory.notes[i]}</option>`);
+    $("#rootNote").append(`<option value="${music_theory.notes[i]}">${music_theory.notes[i].toUpperCase()}</option>`);
   }
 }
 
@@ -67,7 +67,7 @@ generateNoteDurationSelector = function () {
   `);
   $('#selectors').append(`<div class="col"><select id="noteDurationMod" class="dynamicSelector form-control">
     <option value="n" selected>No Tuplet</option>
-    <option value="t">Triples</option>
+    <option value="t">triples</option>
     <option value="n.">dotted</option>
   `);
 }
