@@ -1,73 +1,116 @@
-getNoteFromQWERTY = function (key, withOctave) {
+getNoteFromQWERTY = function (key) {
   var note;
   var invalidNote = false;
 
   switch (event.key) {
     case 'a':
-      note = 'c4';
+      note = 'c';
       break;
     case 'w':
-      note = 'c#4';
+      note = 'c#';
       break;
     case 's':
-      note = 'd4';
+      note = 'd';
       break;
     case 'e':
-      note = 'd#4';
+      note = 'd#';
       break;
     case 'd':
-      note = 'e4';
+      note = 'e';
       break;
     case 'f':
-      note = 'f4';
+      note = 'f';
       break;
     case 't':
-      note = 'f#4';
+      note = 'f#';
       break;
     case 'g':
-      note = 'g4';
+      note = 'g';
       break;
     case 'y':
-      note = 'g#4';
+      note = 'g#';
       break;
     case 'h':
-      note = 'a4';
+      note = 'a';
       break;
     case 'u':
-      note = 'a#4';
+      note = 'a#';
       break;
     case 'j':
-      note = 'b4';
+      note = 'b';
       break;
     case 'k':
-      note = 'c5';
+      note = 'c';
       break;
     case 'o':
-      note = 'c#5';
+      note = 'c#';
       break;
     case 'l':
-      note = 'd5';
+      note = 'd';
       break;
     case 'p':
-      note = 'd#5';
+      note = 'd#';
       break;
     case ';':
-      note = 'e5';
+      note = 'e';
       break;
     case '\'':
-      note = 'f5';
+      note = 'f';
       break;
     default:
       invalidNote = true;
   }
 
   if (!invalidNote) {
-    if (withOctave = true) {
-      return note;
-    } else {
-      return note.substring(0, note.length - 1);
-    }
+    return note;
   } else {
     return false;
+  }
+}
+
+class MIDIAccess {
+  constructor(args = {}) {
+    this.onDeviceInput = args.onDeviceInput || console.log;
+  }
+
+  start() {
+    return new Promise((resolve, reject) => {
+      this._requestAccess().then(access => {
+        this.initialize(access);
+        resolve();
+      }).catch(() => reject('Something went wrong.'));
+    });
+  }
+
+  initialize(access) {
+    const devices = access.inputs.values();
+    for (let device of devices) this.initializeDevice(device);
+  }
+
+  initializeDevice(device) {
+    device.onmidimessage = this.onMessage.bind(this);
+  }
+  
+  onMessage(message) {
+    let [status, input, value] = message.data;
+    this.onDeviceInput({ status, input, value });
+  }
+
+  _requestAccess() {
+    return new Promise((resolve, reject) => {
+      if (navigator.requestMIDIAccess)
+        navigator.requestMIDIAccess()
+          .then(resolve)
+          .catch(reject);
+      else reject();
+    });
+  }
+}
+
+function onDeviceInput({ status, input, value }) {
+  //console.log('onDeviceInput!', status, input, value);
+  if (status == 144) {
+    //console.log("noteID: " + input);
+    console.log(music_theory.notes[input%12]);
   }
 }

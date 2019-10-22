@@ -70,4 +70,10 @@ $(document).ready(function () {
     }
   });
 
+  // intercept midi keyboard presses to identify notes being played
+  const midiIntercept = new MIDIAccess({ onDeviceInput });
+  midiIntercept.start().then(() => {
+    console.log('MIDI INTERCEPT STARTED!');
+  }).catch(console.error);
+  
 });
