@@ -73,5 +73,7 @@ generateNoteDurationSelector = function () {
 }
 
 destroySelectors = function () {
+  resetTrainerBar();
   $('#selectors').html('');
+
 }

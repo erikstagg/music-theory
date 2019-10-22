@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-  var notesCorrect = 0, notesWrong = 0;
-
   // var exercises = {
   //   scale: "scale",
   // }
@@ -57,52 +55,5 @@ $(document).ready(function () {
     console.log('MIDI INTERCEPT STARTED!');
   }).catch(console.error);
   // end interceptors
-
-  recordNote = function (note) {
-    if (music_theory.isInKey(note, $('#rootNote').val(), $('#scale').val())) {
-      //console.log("in key!");
-      notesCorrect++;
-      $('#trainerBar').removeClass("bad");
-      $('#trainerBar').addClass("good");
-    } else {
-      notesWrong++;
-      $('#trainerBar').removeClass("good");
-      $('#trainerBar').addClass("bad");
-    }
-    var score = notesCorrect - notesWrong;
-    $('#notesCorrect').html("Notes Correct: " + notesCorrect);
-    $('#notesWrong').html("Notes Wrong: " + notesWrong);
-    $('#score').html("Score: " + score);
-    $('#notePlayedLast').html("Note Played Last: " + note.toUpperCase());
-
-  }
-
-  playSequence = function (sequence, noteDur, patternName) {
-    $('.col.btnPlay').hide();
-    $('.col.btnStop').show();
-
-    var synthSequence = new Tone.PolySynth(3, Tone.Synth).toMaster();
-
-    console.log("sequence: " + sequence);
-    console.log("noteDur: " + noteDur);
-    console.log("patternName: " + patternName);
-
-    var pattern = new Tone.Pattern(function (time, note) {
-      //the order of the notes passed in depends on the pattern
-      synthSequence.triggerAttackRelease(note, noteDur, time);
-    }, sequence, patternName).start(0);
-
-    Tone.Transport.bpm.value = currentTempo;
-    synthSequence.volume.value = currentVolume;
-    Tone.Transport.start("+0.1");
-  }
-
-  stopSequence = function () {
-    $('.col.btnStop').hide();
-    $('.col.btnPlay').show();
-
-    Tone.Transport.stop();
-    Tone.Transport.cancel(0);
-  }
-
+  
 });

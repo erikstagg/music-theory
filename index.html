@@ -68,6 +68,14 @@
 			border-radius: 15px;
 		}
 
+		#trainerBar.good {
+			background-color: #28a745;
+		}
+
+		#trainerBar.bad {
+			background-color: rgb(179, 0, 0);
+		}
+
 		#trainerBar span {
 			background-color: rgba(255, 255, 255, 0.8);
 			margin: 0 10px;
@@ -79,13 +87,20 @@
 			display: none;
 		}
 
-		#trainerBar.good {
-			background-color: #28a745;
+		#trainerBar #btnClear {
+			float: right;
+			margin: -10px -1px 0 0;
+			height: 40px;
+			border-radius: 0 15px 15px 0;
+			padding-top: 10px;
+			cursor: pointer;
+			border: 1px solid rgb(141, 141, 141);
 		}
 
-		#trainerBar.bad {
-			background-color: rgb(179, 0, 0);
+		#trainerBar #btnClear:hover {
+			background-color: rgba(255, 255, 255, 1);
 		}
+
 	</style>
 	<div class="container">
 		<div class="row">
@@ -120,7 +135,7 @@
 					<span id="notesCorrect"></span>
 					<span id="notesWrong"></span>
 					<span id="score"></span>
-					<span id="notePlayedLast">play in the selected scale.</span>
+					<span id="notePlayedLast">Play in the selected scale.</span>
 				</div>
 			</div>
 		</div>
