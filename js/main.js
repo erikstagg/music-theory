@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
   // var exercises = {
   //   scale: "scale",
@@ -39,7 +39,16 @@ $(document).ready(function () {
     being played
   */
 
-  $("body").keypress(function (event) {
+  // intercept clicked notes
+  document.addEventListener('mousedown', ev => {
+    if (ev.path[3].localName == 'tone-keyboard-note') {
+      console.log('note #' + ev.path[3].getAttribute('note'))
+      console.log('octave ', ev.path[7].getAttribute('octave'))
+    }
+  });
+
+  // intercept qwerty keyboard notes
+  $("body").keypress(function(event) {
     if (getNoteFromQWERTY(event.key, false)) {
       recordNote(getNoteFromQWERTY(event.key, false));
     } else {
@@ -47,7 +56,7 @@ $(document).ready(function () {
     }
   });
 
-  // intercept midi keyboard presses to identify notes being played
+  // intercept midi keyboard presses
   const midiIntercept = new MIDIAccess({
     onDeviceInput
   });
@@ -55,5 +64,5 @@ $(document).ready(function () {
     console.log('MIDI INTERCEPT STARTED!');
   }).catch(console.error);
   // end interceptors
-  
+
 });
