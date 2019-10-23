@@ -63,10 +63,14 @@ function onDeviceInput({ status, input, value
 }) {
   //console.log('onDeviceInput!', status, input, value);
   if (status == 144) {
-    recordNote(music_theory.notes[input % 12]);
+    recordNote(getNoteFromNoteNum(input));
   } else {
     console.log("midi message was not recorded as a note.")
   }
+}
+
+getNoteFromNoteNum = function (noteNum) {
+  return music_theory.notes[noteNum % 12];
 }
 
 recordNote = function (note) {
